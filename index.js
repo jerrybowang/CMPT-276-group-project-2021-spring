@@ -84,7 +84,6 @@ app.use("/journal", journalRoutes);
 
 app.get("/", (req, res) => res.render("pages/index"));
 app.get("/cool", (req, res) => res.send(cool()));
-app.get("/times", (req, res) => res.send(showTimes()));
 
 // test page; will change wen we start the project
 app.get("/db", async (req, res) => {
@@ -231,10 +230,7 @@ app.get("/logout", function (request, response) {
 
 // the following set is for testing only
 app.get("/users", db.getUsers);
-app.get("/users/:id", db.getUserById);
 
-// app.put("/users/:id", db.updateUser);
-// app.delete("/users/:id", db.deleteUser);
 // end of testing set
 
 // the post request by client. eg. adduser; change the Database,etc
@@ -310,7 +306,7 @@ app.get("/food_find/:item", function (request, response) {
       food_searched: food_key,
       saved_food: request.session.saved_food,
     };
-    console.log(request.session.saved_food);
+    // console.log(request.session.saved_food);
     response.render("pages/food_result", results);
   });
 });
@@ -320,14 +316,6 @@ app.get("/food_find/:item", function (request, response) {
 // print on the console which port are we listening
 app.listen(PORT, () => console.log(`Listening on ${PORT}`));
 
-showTimes = () => {
-  let result = "";
-  const times = process.env.TIMES || 5;
-  for (i = 0; i < times; i++) {
-    result += i + " ";
-  }
-  return result;
-};
 
 // modulelized all the functions we created for app
 module.exports = app;
