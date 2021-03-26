@@ -252,7 +252,12 @@ app.delete("/deleteUser", db.deleteUser);
 // ---- Calorie_Counter_API_backend------
 // need a search page
 app.get("/food_search", (req, res) => {
-  res.render("pages/food/food_search", res);
+  if (req.session.loggedin){
+  res.render("pages/food/food_search_login", res);
+  }
+  else{
+    res.render("pages/food/food_search", res);
+  }
 });
 
 app.get("/food_find/redirect", (req, res) => {
@@ -296,7 +301,7 @@ app.get("/food_find/:item", function (request, response) {
 
   APIreq.end(function (res) {
     if (res.error) {
-      throw new Error(req.error); // Is this supposed to be res.error?
+      throw new Error(res.error); // Is this supposed to be res.error?
     }
     // packge the data, pass to render
     var data = res.body.hits;
